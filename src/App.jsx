@@ -27,13 +27,13 @@ function App() {
         maxWidth: '600px'
       }}>
         {/* Use applyTypography directly from your design system */}
-        <text style={{
+        <h1 style={{
           ...applyTypography('display', 'xlarge'),
           color: textTokens.default,
           marginBottom: '16px'
         }}>
           Hello World!
-        </text>
+        </h1>
         
         {/* Subtitle with design system tokens */}
         <p style={{
