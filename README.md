@@ -8,7 +8,7 @@ View the live demo at https://sisi-stripe.github.io/visual-toolkit/
 Visual Toolkit provides a comprehensive design system with:
 
 
-##🛠️ Getting Started
+🛠️ Getting Started
 Prerequisites
 Node.js (version 16 or higher recommended)
 npm (comes with Node.js)
@@ -26,7 +26,7 @@ Install dependencies:
 npm install
 ```
 ​
-##🧑‍💻 Development
+🧑‍💻 Development
 Start the development server:
 
 ```
@@ -35,15 +35,17 @@ npm run dev
 ​
 This will start a local development server at http://localhost:5173.
 
-##🏗️ Building
+🏗️ Building
 To build the project for production:
 
 ```
 npm run build
-​```
+```
+
+
 This generates optimized files in the dist directory.
 
-##📤 Deployment
+📤 Deployment
 Deploying to GitHub Pages
 To deploy the application to GitHub Pages:
 
