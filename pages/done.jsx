@@ -321,7 +321,7 @@ export default function Done() {
                 color: textTokens.subdued,
                 marginTop: '16px'
               }}>
-                Need help? Contact us at support@climbshop.com
+                Need help? Contact us at support[at]climbshop[dot]com
               </p>
             </div>
           </>
