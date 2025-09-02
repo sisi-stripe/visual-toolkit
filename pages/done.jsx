@@ -22,12 +22,13 @@ export default function Done() {
     // Retrieve the checkout session status as soon as the page loads
     if (sessionId) {
       setIsLoading(true);
+      console.log('Checking session:', sessionId);
       fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:4242'}/api/session-status?session_id=${sessionId}`)
         .then((res) => res.json())
         .then((data) => {
           console.log('Session status data:', data);
           if (data.error) {
-            setError(data.error);
+            setError(`Session validation failed: ${data.error}`);
           } else {
             setStatus(data.status);
             setCustomerEmail(data.customer_email);
@@ -35,13 +36,14 @@ export default function Done() {
         })
         .catch((error) => {
           console.error('Error fetching session status:', error);
-          setError('Unable to verify payment status. Please contact support if you were charged.');
+          setError('Unable to verify payment status. This might be an expired or invalid session. Please contact support if you were charged.');
         })
         .finally(() => {
           setIsLoading(false);
         });
     } else {
-      setError('No session ID provided');
+      // No session ID in URL - show error but don't redirect
+      setError('No session ID provided in URL. This page is meant to show payment confirmation.');
       setIsLoading(false);
     }
   }, [sessionId]);
@@ -139,10 +141,8 @@ export default function Done() {
     );
   }
 
-  // Redirect if payment failed or was canceled
-  if (status === "open") {
-    return <Navigate to="/" />;
-  }
+  // Only redirect if payment is still in progress (rare case)
+  // Remove automatic redirect for failed sessions - show error instead
 
   // Success state - the main attraction! 🎉
   return (
