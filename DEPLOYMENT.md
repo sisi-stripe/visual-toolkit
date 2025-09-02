@@ -9,6 +9,20 @@ The frontend is deployed to GitHub Pages, but you'll need to deploy the backend 
 - ✅ **Environment Variables**: Configured for production
 - ✅ **Build Process**: Optimized for production
 
+# Your Complete Deployment Workflow:
+For Regular Updates:
+git add . && git commit -m "changes"
+npm run deploy:current   # Most reliable option
+
+# If Deployment Gets Stuck Again:
+npm run deploy:fresh     # Forces a clean deployment
+
+# 🔍 How to Verify Deployment:
+Check git commit: git ls-remote origin gh-pages
+Visit site: https://sisi-stripe.github.io/visual-toolkit/
+Hard refresh if cached: Cmd+Shift+R (Mac) or Ctrl+F5 (PC)
+
+
 ### Live Demo:
 🔗 **Frontend**: https://sisi-stripe.github.io/visual-toolkit
 
