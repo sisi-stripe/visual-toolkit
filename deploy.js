@@ -30,7 +30,7 @@ function deploy(targetBranch = null) {
     execSync('npm run build', { stdio: 'inherit' });
     
     console.log(`📤 Deploying ${deployBranch} to GitHub Pages...`);
-    execSync('gh-pages -d dist', { stdio: 'inherit' });
+    execSync('gh-pages -d dist --dotfiles', { stdio: 'inherit' });
     
     console.log(`✅ Successfully deployed ${deployBranch} to GitHub Pages!`);
     
