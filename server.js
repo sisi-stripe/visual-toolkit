@@ -47,7 +47,7 @@ router.post("/create-checkout-session", async (req, res) => {
         // Displays Checkout as an embedded form
         ui_mode: "embedded",
         // Defines where Stripe will redirect a customer after payment
-        return_url: `${process.env.DOMAIN || 'http://localhost:3000'}/done?session_id={CHECKOUT_SESSION_ID}`,
+        return_url: `${process.env.DOMAIN || 'http://localhost:3000'}/visual-toolkit/done?session_id={CHECKOUT_SESSION_ID}`,
       });
     } else if (items && items.length > 0) {
       // Handle dynamic items (your chalkbag products)
@@ -70,7 +70,7 @@ router.post("/create-checkout-session", async (req, res) => {
         mode: 'payment',
         // Use embedded UI for consistency
         ui_mode: "embedded",
-        return_url: `${process.env.DOMAIN || 'http://localhost:3000'}/done?session_id={CHECKOUT_SESSION_ID}`,
+        return_url: `${process.env.DOMAIN || 'http://localhost:3000'}/visual-toolkit/done?session_id={CHECKOUT_SESSION_ID}`,
         metadata: {
           orderType: 'chalkbag_purchase'
         }

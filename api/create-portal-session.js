@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: customerId,
       // Specify a URL to return to when done
-      return_url: `${process.env.DOMAIN || 'https://sisi-stripe.github.io/visual-toolkit'}/done?session_id=${session_id}`,
+      return_url: `${process.env.DOMAIN || 'http://localhost:3000'}/visual-toolkit/done?session_id=${session_id}`,
     });
 
     // Return the portal URL (don't redirect in serverless function)
