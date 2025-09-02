@@ -7,7 +7,7 @@ import {
   backgroundTokens, 
   textTokens, 
   borderTokens 
-} from '../design-system';
+} from '../src/design-system';
 import './Checkout.css';
 
 export default function Checkout() {

@@ -5,13 +5,10 @@ import {
   textTokens, 
   borderTokens,
   hues 
-} from '../design-system';
-import Button from './Button';
+} from '../src/design-system';
+import Button from '../src/components/Button';
 
-const Success = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const sessionId = urlParams.get('session_id');
-
+const Cancel = () => {
   return (
     <div style={{
       minHeight: '100vh',
@@ -29,11 +26,11 @@ const Success = () => {
         textAlign: 'center',
         maxWidth: '500px'
       }}>
-        {/* Success Icon */}
+        {/* Cancel Icon */}
         <div style={{
           width: '80px',
           height: '80px',
-          backgroundColor: hues.green[500],
+          backgroundColor: hues.orange[500],
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
@@ -44,7 +41,7 @@ const Success = () => {
             fontSize: '40px',
             color: 'white'
           }}>
-            ✓
+            !
           </span>
         </div>
 
@@ -53,40 +50,40 @@ const Success = () => {
           color: textTokens.default,
           marginBottom: '16px'
         }}>
-          Payment Successful!
+          Payment Cancelled
         </h1>
         
         <p style={{
           ...applyTypography('body', 'large'),
           color: textTokens.subdued,
-          marginBottom: '24px'
+          marginBottom: '32px'
         }}>
-          Thank you for your purchase! Your climbing chalkbags will be shipped to you soon.
+          Your payment was cancelled. No charges were made to your account. 
+          Feel free to continue shopping when you're ready!
         </p>
 
-        {sessionId && (
-          <p style={{
-            ...applyTypography('body', 'small'),
-            color: textTokens.subdued,
-            marginBottom: '32px',
-            backgroundColor: backgroundTokens.backdrop,
-            padding: '12px',
-            borderRadius: '4px',
-            fontFamily: 'monospace'
-          }}>
-            Order ID: {sessionId}
-          </p>
-        )}
-
-        <Button
-          variant="primary"
-          onClick={() => window.location.href = '/'}
-        >
-          Continue Shopping
-        </Button>
+        <div style={{
+          display: 'flex',
+          gap: '16px',
+          justifyContent: 'center'
+        }}>
+          <Button
+            variant="secondary"
+            onClick={() => window.location.href = '/'}
+          >
+            Continue Shopping
+          </Button>
+          
+          <Button
+            variant="primary"
+            onClick={() => window.history.back()}
+          >
+            Go Back
+          </Button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Success;
+export default Cancel;

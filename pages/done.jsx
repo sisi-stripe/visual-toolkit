@@ -6,8 +6,8 @@ import {
   textTokens, 
   borderTokens,
   hues 
-} from '../design-system';
-import Button from './Button';
+} from '../src/design-system';
+import Button from '../src/components/Button';
 
 export default function Done() {
   // Get the checkout session ID from the URL
