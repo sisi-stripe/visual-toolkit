@@ -15,27 +15,39 @@ export default function Done() {
   const sessionId = searchParams.get("session_id");
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Retrieve the checkout session status as soon as the page loads
     if (sessionId) {
+      setIsLoading(true);
       fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:4242'}/api/session-status?session_id=${sessionId}`)
         .then((res) => res.json())
-        // Set the checkout session status in state
         .then((data) => {
           console.log('Session status data:', data);
-          setStatus(data.status);
-          setCustomerEmail(data.customer_email);
+          if (data.error) {
+            setError(data.error);
+          } else {
+            setStatus(data.status);
+            setCustomerEmail(data.customer_email);
+          }
         })
         .catch((error) => {
           console.error('Error fetching session status:', error);
-          setStatus('error');
+          setError('Unable to verify payment status. Please contact support if you were charged.');
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
+    } else {
+      setError('No session ID provided');
+      setIsLoading(false);
     }
   }, [sessionId]);
 
-  // Show loading indicator until we get checkout session status
-  if (!status) {
+  // Loading state
+  if (isLoading) {
     return (
       <div style={{
         minHeight: '100vh',
@@ -63,8 +75,65 @@ export default function Done() {
             ...applyTypography('body', 'medium'),
             color: textTokens.subdued
           }}>
-            Loading payment status...
+            Confirming your purchase...
           </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        backgroundColor: backgroundTokens.surface,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '24px'
+      }}>
+        <div style={{
+          backgroundColor: backgroundTokens.offset,
+          border: `2px solid ${hues.red[300]}`,
+          borderRadius: '12px',
+          padding: '48px',
+          textAlign: 'center',
+          maxWidth: '500px',
+          width: '100%'
+        }}>
+          {/* Error Icon */}
+          <div style={{
+            fontSize: '64px',
+            marginBottom: '24px',
+            animation: 'pulse 2s infinite'
+          }}>
+            ⚠️
+          </div>
+          
+          <h1 style={{
+            ...applyTypography('heading', 'large'),
+            color: hues.red[600],
+            marginBottom: '16px'
+          }}>
+            Oops! Something went wrong
+          </h1>
+          
+          <p style={{
+            ...applyTypography('body', 'medium'),
+            color: textTokens.subdued,
+            marginBottom: '32px'
+          }}>
+            {error}
+          </p>
+          
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
+            <Link to="/">
+              <Button variant="primary">
+                Back to Store
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -75,6 +144,7 @@ export default function Done() {
     return <Navigate to="/" />;
   }
 
+  // Success state - the main attraction! 🎉
   return (
     <div style={{
       minHeight: '100vh',
@@ -86,61 +156,122 @@ export default function Done() {
     }}>
       <div style={{
         backgroundColor: backgroundTokens.offset,
-        border: `1px solid ${borderTokens.default}`,
-        borderRadius: '8px',
+        border: `2px solid ${hues.green[300]}`,
+        borderRadius: '16px',
         padding: '48px',
         textAlign: 'center',
-        maxWidth: '500px',
-        width: '100%'
+        maxWidth: '600px',
+        width: '100%',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
       }}>
         {status === 'complete' && (
           <>
-            {/* Success Icon */}
+            {/* Success Animation */}
             <div style={{
-              width: '80px',
-              height: '80px',
-              backgroundColor: hues.green[500],
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 24px auto'
+              fontSize: '80px',
+              marginBottom: '24px',
+              animation: 'bounce 1s ease-in-out infinite'
             }}>
-              <span style={{
-                fontSize: '40px',
-                color: 'white'
-              }}>
-                ✓
-              </span>
+              🧗‍♀️✨
             </div>
-
+            
+            {/* Success Message */}
             <h1 style={{
-              ...applyTypography('display', 'xlarge'),
-              color: textTokens.default,
+              ...applyTypography('heading', 'large'),
+              color: hues.green[600],
               marginBottom: '16px'
             }}>
-              Payment Successful!
+              Purchase Successful! 🎉
             </h1>
             
             <p style={{
               ...applyTypography('body', 'large'),
-              color: textTokens.subdued,
-              marginBottom: '24px'
+              color: textTokens.default,
+              marginBottom: '8px'
             }}>
-              Your payment was successful. Thank you for your purchase!
+              Thank you for your order!
+            </p>
+            
+            <p style={{
+              ...applyTypography('body', 'medium'),
+              color: textTokens.subdued,
+              marginBottom: '32px'
+            }}>
+              Your climbing chalkbag is on its way to help you conquer new heights! 🏔️
             </p>
 
-            {customerEmail && (
-              <p style={{
-                ...applyTypography('body', 'medium'),
-                color: textTokens.subdued,
-                marginBottom: '32px'
+            {/* Order Details */}
+            <div style={{
+              backgroundColor: backgroundTokens.subtle,
+              border: `1px solid ${borderTokens.default}`,
+              borderRadius: '8px',
+              padding: '24px',
+              marginBottom: '32px',
+              textAlign: 'left'
+            }}>
+              <h3 style={{
+                ...applyTypography('heading', 'small'),
+                color: textTokens.default,
+                marginBottom: '16px'
               }}>
-                A confirmation email has been sent to: {customerEmail}
-              </p>
-            )}
+                Order Confirmation
+              </h3>
+              
+              {customerEmail && (
+                <p style={{
+                  ...applyTypography('body', 'medium'),
+                  color: textTokens.subdued,
+                  marginBottom: '8px'
+                }}>
+                  📧 Confirmation email sent to: <strong>{customerEmail}</strong>
+                </p>
+              )}
+              
+              {sessionId && (
+                <p style={{
+                  ...applyTypography('body', 'small'),
+                  color: textTokens.subdued,
+                  fontFamily: 'monospace',
+                  backgroundColor: backgroundTokens.backdrop,
+                  padding: '8px',
+                  borderRadius: '4px',
+                  marginTop: '8px'
+                }}>
+                  Order ID: {sessionId.substring(0, 24)}...
+                </p>
+              )}
+            </div>
 
-            {/* Show manage billing button */}
+            {/* Next Steps */}
+            <div style={{
+              backgroundColor: hues.blue[50],
+              border: `1px solid ${hues.blue[200]}`,
+              borderRadius: '8px',
+              padding: '20px',
+              marginBottom: '32px',
+              textAlign: 'left'
+            }}>
+              <h4 style={{
+                ...applyTypography('heading', 'small'),
+                color: hues.blue[700],
+                marginBottom: '12px'
+              }}>
+                What happens next?
+              </h4>
+              
+              <ul style={{
+                ...applyTypography('body', 'medium'),
+                color: hues.blue[600],
+                margin: 0,
+                paddingLeft: '20px'
+              }}>
+                <li style={{ marginBottom: '8px' }}>📦 We'll prepare your chalkbag for shipping</li>
+                <li style={{ marginBottom: '8px' }}>🚚 You'll receive tracking information via email</li>
+                <li style={{ marginBottom: '8px' }}>🧗‍♀️ Get ready for your next climbing adventure!</li>
+              </ul>
+            </div>
+
+            {/* Action Buttons */}
             <div style={{
               display: 'flex',
               flexDirection: 'column',
@@ -170,52 +301,62 @@ export default function Done() {
                 <Button
                   variant="secondary"
                   type="submit"
-                  style={{ width: '100%' }}
+                  style={{ width: '100%', marginBottom: '12px' }}
                 >
-                  Manage billing information
+                  📄 Manage Billing & Receipt
                 </Button>
               </form>
               
-              <Link to="/" style={{ textDecoration: 'none' }}>
-                <Button variant="primary" style={{ width: '100%' }}>
-                  Back to products
+              <Link to="/" style={{ width: '100%' }}>
+                <Button
+                  variant="primary"
+                  style={{ width: '100%' }}
+                >
+                  🛍️ Continue Shopping
                 </Button>
               </Link>
+              
+              <p style={{
+                ...applyTypography('body', 'small'),
+                color: textTokens.subdued,
+                marginTop: '16px'
+              }}>
+                Need help? Contact us at support@climbshop.com
+              </p>
             </div>
-          </>
-        )}
-
-        {status === 'error' && (
-          <>
-            <h1 style={{
-              ...applyTypography('display', 'xlarge'),
-              color: textTokens.default,
-              marginBottom: '16px'
-            }}>
-              Payment Error
-            </h1>
-            
-            <p style={{
-              ...applyTypography('body', 'large'),
-              color: textTokens.subdued,
-              marginBottom: '32px'
-            }}>
-              There was an error processing your payment. Please try again or contact support.
-            </p>
-
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <Button variant="primary">
-                Back to products
-              </Button>
-            </Link>
           </>
         )}
       </div>
 
+      {/* CSS Animations */}
       <style>{`
         @keyframes spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+          0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+          }
+          40% {
+            transform: translateY(-10px);
+          }
+          60% {
+            transform: translateY(-5px);
+          }
+        }
+        
+        @keyframes pulse {
+          0% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.5;
+          }
+          100% {
+            opacity: 1;
+          }
         }
       `}</style>
     </div>
