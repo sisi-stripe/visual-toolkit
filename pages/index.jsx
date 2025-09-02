@@ -8,6 +8,7 @@ import {
 } from '../src/design-system';
 import ProductGrid from '../src/components/ProductGrid';
 import Cart from '../src/components/Cart';
+import { products } from '../src/data/products';
 
 // This is the homepage component
 export default function HomePage({ 
@@ -79,7 +80,7 @@ export default function HomePage({
 
       {/* Main Content */}
       <div style={{ padding: '32px 24px' }}>
-        <ProductGrid onAddToCart={onAddToCart} />
+        <ProductGrid products={products} onAddToCart={onAddToCart} />
       </div>
 
       {/* Cart Component */}

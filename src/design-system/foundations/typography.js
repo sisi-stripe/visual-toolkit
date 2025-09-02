@@ -37,12 +37,14 @@ export const systemFonts = {
       large: {size: "20px", lineHeight: "28px", weight: "600"},
       medium: {size: "16px", lineHeight: "24px", weight: "600"},
       small: {size: "14px", lineHeight: "20px", weight: "600"},
-      xsmall: {size: "12px", lineHeight: "16px", weight: "600"}
+      xsmall: {size: "12px", lineHeight: "16px", weight: "600"},
+      bold: {size: "20px", lineHeight: "28px", weight: "700"}
     },
     body: {
       large: {size: "16px", lineHeight: "24px", weight: "400"},
       medium: {size: "14px", lineHeight: "20px", weight: "400"},
-      small: {size: "12px", lineHeight: "16px", weight: "400"}
+      small: {size: "12px", lineHeight: "16px", weight: "400"},
+      normal: {size: "14px", lineHeight: "20px", weight: "400"}
     },
     label: {
       large: {size: "14px", lineHeight: "20px", weight: "400"},
