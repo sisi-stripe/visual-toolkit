@@ -81,6 +81,11 @@ export const hues = {
       900: "#1A1F2E"
     }
   };
+
+  // Action colors
+  export const actionColors = {
+    primary: "#675DFF"
+  };
   
   // Contrast rules
   export const contrastRules = {

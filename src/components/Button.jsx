@@ -1,21 +1,22 @@
 // src/components/Button.jsx
 import React from 'react';
-import { applyTypography, hues } from '../design-system';
+import { applyTypography, hues, actionColors } from '../design-system';
 
 const Button = ({ children, variant = 'primary', onClick }) => {
   // Get colors based on variant
   const getBackgroundColor = () => {
     switch (variant) {
-      case 'primary': return hues.blue[500];
+      case 'primary': return actionColors.primary;
       case 'danger': return hues.red[500];
       case 'success': return hues.green[500];
+      case 'purple': return hues.purple[500];
       default: return 'transparent';
     }
   };
   
   // Get text color based on variant
   const getTextColor = () => {
-    return ['primary', 'danger', 'success'].includes(variant) ? '#FFFFFF' : hues.gray[800];
+    return ['primary', 'danger', 'success', 'purple'].includes(variant) ? '#FFFFFF' : hues.gray[800];
   };
   
   // Get border based on variant

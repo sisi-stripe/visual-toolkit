@@ -1,0 +1,33 @@
+# Project Context
+You are editing a React + Vite project that uses **inline styles with design tokens**. The authoritative import surface is the **design-system barrel** at `src/design-system/index.jsx`.
+
+
+# Imports (always use barrel)
+import {
+backgroundTokens,
+borderTokens,
+iconTokens,
+textTokens,
+applyTypography
+} from "../design-system"; # or "@/design-system" if alias exists
+
+
+# Component Standards
+- Functional, declarative components only; avoid classes.
+- File layout: exported component → subcomponents → hooks/helpers → static content.
+- Accept standard HTML props via spread; keep components focused.
+- Use tokens for all styles; do not hardcode values.
+- Typography via `applyTypography(type, size)`.
+- Support `variant` props following `Button.jsx`.
+
+
+# API Standards (if editing API routes)
+- Validate all inputs with zod; define response schemas; export `z.infer` types.
+- Error shape `{ error: { code, message, details? } }` using 400/422/405 as appropriate.
+
+
+# Code Style
+- Write concise, technical TypeScript (or TS-style types).
+- Follow Standard.js rules.
+- Prefer loops & small helpers over duplicate logic.
+- Use descriptive variable names with auxiliaries (`isLoading`, `hasError`).
