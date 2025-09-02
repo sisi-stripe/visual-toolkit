@@ -7,6 +7,7 @@
     "dev": "concurrently \"vite --port 3000 --open\" \"node server.js\"",
     "dev-frontend": "vite",
     "build": "vite build",
+    "build:vercel": "VITE_API_BASE_URL=https://visual-toolkit-backend.vercel.app vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist --dotfiles",
@@ -42,6 +43,7 @@
     "concurrently": "8.2.2",
     "gh-pages": "^6.3.0",
     "husky": "^9.1.7",
+    "vercel": "^46.1.1",
     "vite": "^5.2.11"
   }
 }

@@ -147,8 +147,26 @@ export default function Done() {
               gap: '16px',
               alignItems: 'center'
             }}>
-              <form action={`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:4242'}/api/create-portal-session`} method="POST">
-                <input type="hidden" name="session_id" value={sessionId} />
+              <form onSubmit={async (e) => {
+                e.preventDefault();
+                try {
+                  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:4242'}/api/create-portal-session`, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ session_id: sessionId }),
+                  });
+                  const data = await response.json();
+                  if (data.url) {
+                    window.location.href = data.url;
+                  }
+                } catch (error) {
+                  console.error('Error creating portal session:', error);
+                  alert('Failed to create billing portal session');
+                }
+              }}>
+
                 <Button
                   variant="secondary"
                   type="submit"
