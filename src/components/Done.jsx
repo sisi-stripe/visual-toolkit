@@ -19,7 +19,7 @@ export default function Done() {
   useEffect(() => {
     // Retrieve the checkout session status as soon as the page loads
     if (sessionId) {
-      fetch(`http://localhost:4242/api/session-status?session_id=${sessionId}`)
+      fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:4242'}/api/session-status?session_id=${sessionId}`)
         .then((res) => res.json())
         // Set the checkout session status in state
         .then((data) => {
@@ -147,7 +147,7 @@ export default function Done() {
               gap: '16px',
               alignItems: 'center'
             }}>
-              <form action="http://localhost:4242/api/create-portal-session" method="POST">
+              <form action={`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:4242'}/api/create-portal-session`} method="POST">
                 <input type="hidden" name="session_id" value={sessionId} />
                 <Button
                   variant="secondary"

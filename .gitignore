@@ -3,6 +3,11 @@
 .env.local
 .env.production
 .env.production.local
+.env.development.local
+
+# Config files that might contain secrets
+config/secrets.json
+config/production.json
 
 # Dependencies
 node_modules/

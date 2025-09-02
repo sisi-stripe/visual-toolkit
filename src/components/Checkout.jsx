@@ -67,7 +67,7 @@ export default function Checkout() {
     console.log('priceId:', priceId);
     
     return (
-      fetch("http://localhost:4242/api/create-checkout-session", {
+      fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:4242'}/api/create-checkout-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),

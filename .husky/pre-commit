@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Secret scanning before commit
+echo "🔍 Scanning for secrets..."
+
+# Check for common secret patterns
+if git diff --cached --name-only | grep -E '\.(js|jsx|ts|tsx|json|env)$' | xargs grep -l -E '(sk_|pk_|whsec_|rk_live|password|secret|key.*=.*[A-Za-z0-9]{20,})' 2>/dev/null; then
+    echo "❌ BLOCKED: Potential secrets detected in staged files!"
+    echo "Files with potential secrets:"
+    git diff --cached --name-only | grep -E '\.(js|jsx|ts|tsx|json|env)$' | xargs grep -l -E '(sk_|pk_|whsec_|rk_live|password|secret|key.*=.*[A-Za-z0-9]{20,})' 2>/dev/null
+    echo ""
+    echo "💡 To fix:"
+    echo "  1. Move secrets to .env files"
+    echo "  2. Add .env to .gitignore"
+    echo "  3. Use environment variables in your code"
+    echo ""
+    exit 1
+fi
+
+echo "✅ No secrets detected - commit allowed"
