@@ -37,7 +37,7 @@ GitHub Pages only hosts static files, so you need to deploy the backend separate
 # Install Vercel CLI
 npm i -g vercel
 
-# Deploy backend
+# Deploy backend to vercel
 vercel --prod
 ```
 

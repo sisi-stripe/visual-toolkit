@@ -133,16 +133,8 @@ export default function Checkout() {
             Please add items to your cart before proceeding to checkout.
           </p>
           <button
+            variant="primary"
             onClick={() => window.location.href = '/'}
-            style={{
-              ...applyTypography('body', 'medium'),
-              backgroundColor: '#675DFF',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              padding: '12px 24px',
-              cursor: 'pointer'
-            }}
           >
             Back to Shop
           </button>

@@ -7,7 +7,7 @@
     "dev": "concurrently \"vite --port 3000 --open\" \"node server.js\"",
     "dev-frontend": "vite",
     "build": "vite build",
-    "build:vercel": "VITE_API_BASE_URL=https://demo-kvdyz1wjr-sisiyudesign-gmailcoms-projects.vercel.app vite build",
+    "build:vercel": "VITE_API_BASE_URL=https://demo-7r5hvtvfy-sisiyudesign-gmailcoms-projects.vercel.app vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist --dotfiles",

@@ -8,6 +8,7 @@ import {
 } from '../src/design-system';
 import ProductGrid from '../src/components/ProductGrid';
 import Cart from '../src/components/Cart';
+import Button from '../src/components/Button';
 import { products } from '../src/data/products';
 
 // This is the homepage component
@@ -35,9 +36,9 @@ export default function HomePage({
         textAlign: 'center'
       }}>
         <h1 style={{
-          ...applyTypography('heading', 'bold'),
+          ...applyTypography('heading', 'xlarge'),
           margin: '0 0 8px 0',
-          color: hues.blue[600]
+          color: hues.gray[900]
         }}>
           🧗 Climb Shop
         </h1>
@@ -46,7 +47,7 @@ export default function HomePage({
           margin: 0,
           color: textTokens.subdued
         }}>
-          Premium climbing chalkbags for your next adventure
+          Premium climbing chalkbags and gear for your next adventure
         </p>
       </div>
 
@@ -57,17 +58,11 @@ export default function HomePage({
         right: '24px', 
         zIndex: 1000 
       }}>
-        <button
+      
+        <Button
+          variant="primary"
           onClick={onCartOpen}
           style={{
-            backgroundColor: hues.blue[500],
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
-            padding: '12px 16px',
-            cursor: 'pointer',
-            fontSize: '16px',
-            fontWeight: 'bold',
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
@@ -75,7 +70,7 @@ export default function HomePage({
           }}
         >
           🛒 Cart ({cartItems.reduce((sum, item) => sum + item.quantity, 0)})
-        </button>
+        </Button>
       </div>
 
       {/* Main Content */}
